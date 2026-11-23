@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gurukrupa Multi Speciality Hospital: Automated Nurse Roster</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1c2430;--mu:#667085;--bd:#dde1e7;--ac:#0f766e;--acx:#fff;--M:#fde9b8;--E:#cfe3fb;--N:#dcd3f5;--D:#c9ecd6;--O:#eceef2;--bad:#d92d20;--ok:#067647;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1a1f26;--tx:#e8ebf0;--mu:#97a0ad;--bd:#2c343f;--ac:#2dd4bf;--acx:#06201d;--M:#5a4514;--E:#1f3a5c;--N:#3a2f63;--D:#1d4a33;--O:#262c34;--bad:#f97066;--ok:#47cd89}}
+:root[data-theme="dark"]{--bg:#111418;--card:#1a1f26;--tx:#e8ebf0;--mu:#97a0ad;--bd:#2c343f;--ac:#2dd4bf;--acx:#06201d;--M:#5a4514;--E:#1f3a5c;--N:#3a2f63;--D:#1d4a33;--O:#262c34;--bad:#f97066;--ok:#47cd89}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1600px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:0}.hd{display:flex;align-items:center;gap:12px;margin-bottom:8px}.logo{width:56px;height:56px;border-radius:10px;background:#fff;object-fit:contain;flex:none}.ttl{font-size:15px;color:var(--mu);margin-top:2px}h2{font-size:16px;margin:0 0 6px}.sub,.hint{color:var(--mu);margin:2px 0 10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:14px}
+input,select{padding:5px 6px;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx);font:inherit;max-width:100%}
+button{padding:8px 14px;border-radius:7px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit;cursor:pointer}
+button.p{background:var(--ac);color:var(--acx);border-color:var(--ac);font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:8px;margin-bottom:6px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border:1px solid var(--bd);padding:3px 4px;text-align:center;white-space:nowrap}
+th{background:var(--bg);font-size:11px}th small{color:var(--mu);font-weight:400}
+td.nm{text-align:left;font-weight:600}
+.av{min-width:74px}
+#inp select,#inp input{font-size:12px;padding:4px}
+.offd{background:var(--O)}.offd .ch,.offd .dbl{opacity:.55;cursor:not-allowed}.offd .dbl{text-decoration:line-through}
+.ch{padding:1px 0;width:20px;margin:0 1px;font-size:11px;border-radius:4px;color:var(--mu);text-decoration:line-through}
+.ch.on{background:var(--ac);color:var(--acx);border-color:var(--ac);text-decoration:none}
+.dbl{display:block;width:62px;margin:2px auto 0;padding:0;font-size:10px;border-radius:4px;color:var(--mu)}.dbl.on{background:var(--D);color:var(--tx);border-color:var(--ac);font-weight:700}
+td.M{background:var(--M)}td.E{background:var(--E)}td.N{background:var(--N)}td.D{background:var(--D)}td.O{background:var(--O);color:var(--mu)}td.Z{color:var(--mu)}td.X{background:var(--bad);color:#fff}td.xc{outline:2px dashed var(--ac);outline-offset:-2px}td.xb{outline:2px dotted #7c3aed;outline-offset:-2px}
+td.c{font-weight:600;min-width:52px;height:34px}
+tr.cov td{background:var(--bg);font-size:12px}
+.short{color:var(--bad);font-weight:700}.fine{color:var(--ok)}
+#msg{margin-top:10px}#msg div{margin:2px 0}
+.leg span{display:inline-block;padding:2px 8px;border-radius:5px;margin-right:6px;font-size:12px}
+textarea{width:100%;height:130px;margin-top:8px;display:none;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:7px;padding:8px}
+@media print{.noprint{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<main>
+<header class="hd"><img class="logo" src="data:image/jpeg;base64,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" alt="Gurukrupa Multi Speciality Hospital logo"><div><h1>Gurukrupa Multi Speciality Hospital</h1><div class="ttl">Automated Nurse Roster</div></div></header>
+<p class="sub">32 beds: ICU 8, Ward 24 · Monday to Sunday · Need per day: ICU 2 / 2 / 2, Ward 3 / 3 / 3 (Morning / Evening / Night)</p>
+
+<section class="card noprint">
+<h2>Step 1 · Nurse inputs</h2>
+<p class="hint">Tap the M / E / N chips to mark a shift as unavailable (struck through). Every nurse follows: 2 nights, then the weekly off, then 4 morning/evening days. The two nights fall on the two days before the chosen off day. Tap <b>2×</b> on any day to make it a double shift: M+E on a day-shift day, or E+N on a night day. The Shift type column sets all seven days at once.</p>
+<div class="wrap"><table id="inp"></table></div>
+<div class="row"><button class="p" id="gen">Step 2 · Generate ICU and Ward rosters</button><button id="rst">Reset sample data</button></div>
+<div id="msg"></div>
+</section>
+
+<section id="out" hidden>
+<div class="leg" style="margin-bottom:8px"><span style="background:var(--M)">M Morning</span><span style="background:var(--E)">E Evening</span><span style="background:var(--N)">N Night</span><span style="background:var(--D)">M+E / E+N Double</span><span style="background:var(--O)">Off</span><span style="outline:2px dashed var(--ac)">Cover double</span><span style="outline:2px dotted #7c3aed">Moved between units</span></div>
+<h2 style="margin:4px 0 6px">Roster 1: strict N N Off pattern (gaps shown)</h2><div id="m1" style="margin-bottom:8px"></div><div class="card"><h2>ICU roster (8 beds)</h2><div class="wrap"><table id="tI"></table></div></div>
+<div class="card"><h2>Ward roster (24 beds)</h2><div class="wrap"><table id="tW"></table></div></div>
+<h2 style="margin:14px 0 6px">Roster 2: gaps filled</h2><div id="m2" style="margin-bottom:8px"></div>
+<div class="card"><h2>ICU roster (8 beds)</h2><div class="wrap"><table id="tI2"></table></div></div>
+<div class="card"><h2>Ward roster (24 beds)</h2><div class="wrap"><table id="tW2"></table></div></div>
+<div class="row noprint" style="margin-top:0"><button id="regen">Regenerate</button><button id="csv">Copy CSV</button><button id="prt">Print</button></div>
+<textarea id="ta" readonly></textarea>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id),DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const REQ={I:{M:2,E:2,N:2},W:{M:3,E:3,N:3}},UN={I:'ICU',W:'Ward'};
+const m7=k=>((k%7)+7)%7,work=s=>'MENDG'.includes(s)&&s!=='O'&&s!=='X'&&s!=='Z';
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+let nurses=[],sh=[],un=[],dd=[],EX={},FILLED=null;
+
+function sample(){
+ const mk=(name,unit,type,off)=>({name,unit,type,dbl:Array(7).fill(false),off,av:Array.from({length:7},()=>[true,true,true])});
+ nurses=[];
+ ['Anita','Bhavna','Chitra','Divya','Esha','Farida','Geeta'].forEach((n,i)=>nurses.push(mk(n,'I','std',i)));
+ nurses.push(mk('Deepak','W','n4',0),mk('Varsha','W','nn',6));
+ [['Hema',0],['Indu',1],['Jaya',2],['Kiran',2],['Lata',3],['Meena',4],['Nisha',5],['Pooja',5],['Rekha',6]].forEach(a=>nurses.push(mk(a[0],'W','std',a[1])));
+}
+function opt(list,v){return list.map(a=>`<option value="${a[0]}"${String(a[0])===String(v)?' selected':''}>${a[1]}</option>`).join('')}
+function renderInputs(){
+ let h='<tr><th>#</th><th>Name</th><th>Unit</th><th>Pattern</th><th>Shift type</th><th>Weekly off</th>'+DAYS.map(d=>`<th>${d}<br><small>M E N</small></th>`).join('')+'</tr>';
+ nurses.forEach((n,i)=>{
+  const S=(f,l,v)=>`<td><select data-f="${f}" data-i="${i}">${opt(l,v)}</select></td>`;
+  h+=`<tr><td>${i+1}</td><td><input data-f="name" data-i="${i}" value="${esc(n.name)}" style="width:92px"></td>`
+  +S('unit',[['I','ICU'],['W','Ward'],['B','ICU + Ward']],n.unit)
+  +S('type',[['std','Standard'],['n4','Nights only (4N)'],['nn','No nights']],n.type)
+  +S('dbl',[['0','Single'],['1','Double'],['c','Custom']],n.dbl.every(Boolean)?'1':n.dbl.some(Boolean)?'c':'0')
+  +S('off',DAYS.map((d,k)=>[k,d]),n.off);
+  const sk=skel(n).t;for(let d=0;d<7;d++){const off=sk[d]==='O';h+=`<td class="av${off?' offd':''}">`+['M','E','N'].map((s,k)=>`<button class="ch${n.av[d][k]&&!off?' on':''}"${off?' disabled':''} data-i="${i}" data-d="${d}" data-k="${k}">${s}</button>`).join('')+`<button class="dbl${n.dbl[d]&&!off?' on':''}"${off?' disabled':''} data-i="${i}" data-d="${d}" title="Double shift">2×</button></td>`};
+  h+='</tr>'});
+ $('inp').innerHTML=h;
+}
+$('inp').onclick=e=>{const x=e.target.closest('.dbl');
+ if(x){const n=nurses[x.dataset.i],d=x.dataset.d;n.dbl[d]=!n.dbl[d];x.classList.toggle('on',n.dbl[d]);
+  const s=$('inp').querySelector(`select[data-f="dbl"][data-i="${x.dataset.i}"]`);if(s)s.value=n.dbl.every(Boolean)?'1':n.dbl.some(Boolean)?'c':'0';return}
+ const b=e.target.closest('.ch');if(!b)return;const{i,d,k}=b.dataset;const a=nurses[i].av[d];a[k]=!a[k];b.classList.toggle('on',a[k])};
+$('inp').oninput=e=>{const t=e.target;if(t.dataset.f==='name')nurses[t.dataset.i].name=t.value};
+$('inp').onchange=e=>{const t=e.target,f=t.dataset.f;if(!f||f==='name')return;const n=nurses[t.dataset.i];if(f==='dbl'){if(t.value!=='c')n.dbl=Array(7).fill(t.value==='1');renderInputs();return}n[f]=f==='off'?+t.value:t.value;if(f==='off'||f==='type')renderInputs()};
+
+function skel(n){
+ const t=Array(7).fill('O'),o=n.off;let dl=[];
+ if(n.type==='n4'){[-2,-1,1,2].forEach(k=>t[m7(o+k)]='N')}
+ else if(n.type==='nn'){for(let k=1;k<=6;k++){t[m7(o+k)]='D';dl.push(m7(o+k))}}
+ else{t[m7(o-2)]=t[m7(o-1)]='N';for(let k=1;k<=4;k++){t[m7(o+k)]='D';dl.push(m7(o+k))}}
+ return{t,dl};
+}
+function init(){
+ sh=[];un=[];dd=[];
+ nurses.forEach(n=>{
+  const{t,dl}=skel(n),r=[...t];dd.push(dl);
+  t.forEach((s,d)=>{const av=n.av[d];
+   if(s==='N')r[d]=n.dbl[d]&&av[1]&&av[2]?'G':av[2]?'N':'X';
+   else if(s==='D'){
+    if(n.dbl[d]&&av[0]&&av[1])r[d]='D';
+    else{const want=dl.indexOf(d)<dl.length/2?0:1;
+     r[d]=av[want]?'ME'[want]:av[1-want]?'ME'[1-want]:'X'}}});
+  sh.push(r);un.push(Array(7).fill(n.unit==='I'?'I':'W'));
+ });
+}
+function cover(){
+ const c={I:[],W:[]};for(const u in c)for(let d=0;d<7;d++)c[u].push({M:0,E:0,N:0});
+ nurses.forEach((n,i)=>sh[i].forEach((s,d)=>{const x=c[un[i][d]][d];
+  if(s==='N')x.N++;else if(s==='M')x.M++;else if(s==='E')x.E++;else if(s==='D'){x.M++;x.E++}else if(s==='G'){x.E++;x.N++}}));
+ return c;
+}
+function cost(){
+ let p=0;const c=cover();
+ nurses.forEach((n,i)=>{for(let d=0;d<6;d++){const s=sh[i][d],t=sh[i][d+1];
+  if((s==='E'||s==='D')&&t==='M')p+=20;
+  if(work(s)&&work(t)&&un[i][d]!==un[i][d+1])p+=2}});
+ for(const u in c)c[u].forEach(x=>['M','E','N'].forEach(s=>{const df=x[s]-REQ[u][s];p+=df<0?-df*1000:df*3}));
+ return p;
+}
+function solve(){
+ init();let cur=cost();
+ for(let it=0;it<20000;it++){
+  const i=Math.floor(Math.random()*nurses.length),n=nurses[i];
+  if(n.unit==='B'&&Math.random()<.45){
+   const d=Math.floor(Math.random()*7);if(!work(sh[i][d]))continue;
+   const old=un[i][d];un[i][d]=old==='I'?'W':'I';const nc=cost();
+   if(nc<=cur)cur=nc;else un[i][d]=old;
+  }else{
+   const dl=dd[i];if(dl.length<2)continue;
+   const a=dl[Math.floor(Math.random()*dl.length)],b=dl[Math.floor(Math.random()*dl.length)];
+   const sa=sh[i][a],sb=sh[i][b];
+   if(a===b||sa===sb||!'ME'.includes(sa)||!'ME'.includes(sb))continue;
+   if(!n.av[a]['ME'.indexOf(sb)]||!n.av[b]['ME'.indexOf(sa)])continue;
+   sh[i][a]=sb;sh[i][b]=sa;const nc=cost();
+   if(nc<=cur)cur=nc;else{sh[i][a]=sa;sh[i][b]=sb}
+  }
+ }
+ return cur;
+}
+function cell(i,d,u){const s=sh[i][d];
+ if(s==='O')return['O','Off'];if(s==='X')return['X','!'];
+ if(un[i][d]!==u)return['Z','–'];return s==='D'?['D','M+E']:s==='G'?['D','E+N']:[s,s];
+}
+function table(u){
+ const c=cover()[u],rows=nurses.map((n,i)=>i).filter(i=>nurses[i].unit===u||nurses[i].unit==='B');
+ let h='<tr><th style="text-align:left">Nurse</th>'+DAYS.map(d=>`<th>${d}</th>`).join('')+'<th>M / E / N</th></tr>';
+ rows.forEach(i=>{h+=`<tr><td class="nm">${esc(nurses[i].name)}</td>`;
+  const k={M:0,E:0,N:0};
+  for(let d=0;d<7;d++){const[cl,tx]=cell(i,d,u);h+=`<td class="c ${cl}${EX[i+':'+d]?' '+EX[i+':'+d]:''}">${tx}</td>`;
+   if(un[i][d]===u){const s=sh[i][d];if(s==='D'){k.M++;k.E++}else if(s==='G'){k.E++;k.N++}else if(k[s]!==undefined)k[s]++}}
+  h+=`<td><b>${k.M} / ${k.E} / ${k.N}</b></td></tr>`});
+ [['M','Morning'],['E','Evening'],['N','Night']].forEach(([s,l])=>{
+  h+=`<tr class="cov"><td class="nm">${l} (need ${REQ[u][s]})</td>`+c.map(x=>`<td class="${x[s]<REQ[u][s]?'short':'fine'}">${x[s]}</td>`).join('')+'<td></td></tr>'});
+ return h;
+}
+function withSt(st,ex,fn){const a=sh,b=un,c=EX;sh=st.sh;un=st.un;EX=ex;try{return fn()}finally{sh=a;un=b;EX=c}}
+function fill(S){
+ const st={sh:S.sh.map(r=>[...r]),un:S.un.map(r=>[...r])},ex={},log=[],cnt=nurses.map(()=>0),dead=new Set;
+ const inU=(i,u)=>nurses[i].unit===u||nurses[i].unit==='B';
+ const borrow=(u,d,s)=>{const o=u==='I'?'W':'I',cv=withSt(st,ex,()=>cover());
+  if(cv[o][d][s]<=REQ[o][s])return false;
+  const c=nurses.map((n,i)=>i).filter(i=>nurses[i].unit==='B'&&st.un[i][d]===o&&st.sh[i][d]===s);
+  if(!c.length)return false;
+  const i=c[0];st.un[i][d]=u;ex[i+':'+d]='xb';
+  log.push(`${nurses[i].name} ${DAYS[d]} moved from ${UN[o]} to ${UN[u]} (${s==='M'?'morning':s==='E'?'evening':'night'})`);return true};
+ const gaps=kind=>withSt(st,ex,()=>{const c=cover(),g=[];for(const u of['I','W'])for(let d=0;d<7;d++)for(const s of kind==='day'?['M','E']:['N'])if(c[u][d][s]<REQ[u][s])g.push([u,d,s]);return g});
+ const pick=kind=>gaps(kind).find(x=>!dead.has(x.join()));
+ for(let it=0;it<300;it++){
+  const g=pick('day');if(!g)break;
+  const[u,d,s]=g,o=s==='M'?'E':'M',c=[];if(borrow(u,d,s))continue;
+  nurses.forEach((n,i)=>{if(inU(i,u)&&st.un[i][d]===u&&st.sh[i][d]===o&&n.av[d][s==='M'?0:1])c.push(i)});
+  if(!c.length){dead.add(g.join());continue}
+  c.sort((a,b)=>cnt[a]-cnt[b]);const i=c[0];
+  st.sh[i][d]='D';cnt[i]++;ex[i+':'+d]='xc';
+  log.push(`${nurses[i].name} ${DAYS[d]} M+E (${UN[u]} ${s==='M'?'morning':'evening'} cover)`);
+ }
+ dead.clear();
+ for(let it=0;it<100;it++){
+  const g=pick('night');if(!g)break;
+  if(!borrow(g[0],g[1],'N'))dead.add(g.join());
+ }
+ return{sh:st.sh,un:st.un,ex,log};
+}
+function generate(){
+ let best=null,bc=1e9;
+ for(let t=0;t<4&&bc>=1000;t++){const c=solve();if(c<bc){bc=c;best={sh:sh.map(r=>[...r]),un:un.map(r=>[...r])}}}
+ sh=best.sh;un=best.un;
+ EX={};$('tI').innerHTML=table('I');$('tW').innerHTML=table('W');$('out').hidden=false;
+ FILLED=fill({sh:sh.map(r=>[...r]),un:un.map(r=>[...r])});
+ withSt(FILLED,FILLED.ex,()=>{$('tI2').innerHTML=table('I');$('tW2').innerHTML=table('W')});
+ const w=[],NM={M:'morning',E:'evening',N:'night'};
+ nurses.forEach((n,i)=>sh[i].forEach((s,d)=>{if(s==='X')w.push(`${n.name} is not available on ${DAYS[d]} for the shift her/his pattern needs, so that day is left unassigned (shown as !).`)}));
+ const c=cover();
+ for(const u in c)c[u].forEach((x,d)=>['M','E','N'].forEach(s=>{if(x[s]<REQ[u][s])w.push(`${UN[u]} ${DAYS[d]} ${NM[s]}: ${REQ[u][s]-x[s]} nurse(s) short.`)}));
+ $('msg').innerHTML=w.length?`<div class="short">Roster built with gaps:</div>`+w.slice(0,14).map(x=>`<div class="short">• ${x}</div>`).join('')+(w.length>14?`<div>…and ${w.length-14} more.</div>`:'')+`<div class="hint">Night cover is fixed by the off days: a nurse off on a given day covers nights on the two days before it. Staggering off days, or adding availability, closes gaps.</div>`
+  :'<div class="fine">All ICU and Ward shifts are covered for the week.</div>';
+ const nt=[];nurses.forEach((n,i)=>n.dbl.forEach((v,d)=>{if(v&&'MEN'.includes(sh[i][d]))nt.push(`${n.name} ${DAYS[d]}`)}));
+ if(nt.length)$('msg').innerHTML+=`<div class="hint">Double shift could not be given (shift not marked available): ${nt.join(', ')}.</div>`;
+ const gp=withSt(FILLED,FILLED.ex,()=>{const c=cover(),g=[];for(const u in c)c[u].forEach((x,d)=>['M','E','N'].forEach(s=>{if(x[s]<REQ[u][s])g.push(`${UN[u]} ${DAYS[d]} ${NM[s]}`)}));return g});
+ const ns=withSt(FILLED,FILLED.ex,()=>{const c=cover(),g=[];for(const u in c)c[u].forEach((x,d)=>{if(x.N<REQ[u].N)g.push(`${UN[u]} ${DAYS[d]} night (a nurse with her weekly off on ${DAYS[m7(d+1)]} or ${DAYS[m7(d+2)]} would cover it)`)});return g});
+ $('m1').innerHTML=w.length?`<div class="short">${w.length} gap(s) in this roster. Red numbers in the cover rows show where.</div>`:'<div class="fine">No gaps in this roster.</div>';
+ $('m2').innerHTML=(gp.length?`<div class="short">Still short after filling: ${gp.join(', ')}.</div>`:'<div class="fine">All shifts are covered in this roster.</div>')+(FILLED.log.length?`<div class="hint">Changes from Roster 1 (outlined cells): ${FILLED.log.join('; ')}.</div>`:'')+(ns.length?`<div class="hint">Night gaps stay open because no nurse may work more than 2 nights. To close them: ${ns.join('; ')}. You can also mark more nurses available for nights, or set a Ward nurse to ICU + Ward.</div>`:'');
+ $('out').scrollIntoView({behavior:'smooth'});
+}
+$('gen').onclick=generate;$('regen').onclick=generate;
+$('rst').onclick=()=>{sample();renderInputs();$('out').hidden=true;$('msg').innerHTML=''};
+$('prt').onclick=()=>{try{window.print()}catch(e){}};
+$('csv').onclick=async()=>{
+ let s='';const mk=(ttl)=>{s+=ttl+'\n';['I','W'].forEach(u=>{s+=`${UN[u]} roster\nNurse,${DAYS.join(',')}\n`;
+  nurses.forEach((n,i)=>{if(n.unit!==u&&n.unit!=='B')return;s+=`"${n.name}",`+DAYS.map((_,d)=>{const x=cell(i,d,u)[1];return x==='Off'||x==='–'?'':x}).join(',')+'\n'});s+='\n'})};mk('ROSTER 1: strict N N Off');if(FILLED)withSt(FILLED,FILLED.ex,()=>mk('ROSTER 2: gaps filled'));
+ const ta=$('ta');ta.value=s;
+ try{await navigator.clipboard.writeText(s);ta.style.display='none';$('msg').innerHTML='<div class="fine">CSV copied to clipboard.</div>'}
+ catch(e){ta.style.display='block';ta.select()}
+};
+sample();renderInputs();
+</script>
+</body>
+</html>
